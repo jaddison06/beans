@@ -1,0 +1,6 @@
+{
+	"Beans namespace": {
+		"prefix": "ns",
+		"body": "using namespace beans;"
+	}
+}
