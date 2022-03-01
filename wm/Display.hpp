@@ -1,3 +1,5 @@
+#pragma once
+
 #include "V2.hpp"
 #include "Colour.hpp"
 
@@ -6,7 +8,6 @@ namespace beans {
         public:
             virtual V2 GetSize() = 0;
 
-            virtual void Destroy() = 0;
             virtual void Flush() = 0;
 
             virtual void SetClip(V2 pos, V2 size) = 0;

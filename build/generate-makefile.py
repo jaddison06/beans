@@ -28,6 +28,8 @@ def fs_util(*commands: str) -> str:
     return f'{PYTHON} build/fs_util.py {" ".join(commands)}'
 
 def main():
+    # todo: header dependencies are unhappy - probs windows paths
+
     cpp_files = all_with_extension('.cpp')
     headers = all_with_extension('.hpp')
 

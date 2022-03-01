@@ -2,5 +2,9 @@
 	"Beans namespace": {
 		"prefix": "ns",
 		"body": "using namespace beans;"
+	},
+	"#pragma once": {
+		"prefix": "once",
+		"body": "#pragma once"
 	}
 }

@@ -1,7 +1,7 @@
 .PHONY: makefile
 
-all: build/objects/./main.o
-	g++ build/objects/./main.o -o beans
+all: build/objects/./main.o build/objects/.\wm/SDLDisplay.o
+	g++ build/objects/./main.o build/objects/.\wm/SDLDisplay.o -o beans
 
 run: all
 	./beans
@@ -16,4 +16,8 @@ clean:
 build/objects/./main.o: ./main.cpp
 	python build/fs_util.py mkdir build/objects/.
 	g++ -c ./main.cpp -o build/objects/./main.o
+
+build/objects/.\wm/SDLDisplay.o: .\wm/SDLDisplay.cpp
+	python build/fs_util.py mkdir build/objects/.\wm
+	g++ -c .\wm/SDLDisplay.cpp -o build/objects/.\wm/SDLDisplay.o
 
