@@ -27,29 +27,57 @@ PYTHON = 'python'
 def fs_util(*commands: str) -> str:
     return f'{PYTHON} build/fs_util.py {" ".join(commands)}'
 
-def main():
-    # todo: header dependencies are unhappy - probs windows paths
+# name -> list of occurrences -> list of arguments
+annotation_list_t = dict[str, list[list[str]]]
 
+def parse_annotations(fname: str) -> annotation_list_t:
+    out: annotation_list_t = {}
+    with open(fname, 'rt') as fh:
+        lines = fh.readlines()
+    
+    for line in lines:
+        if line.startswith('//~'):
+            _, name, *args = line.strip().split(' ')
+            if not name in out:
+                out[name] = []
+            out[name].append(args)
+    
+    return out
+
+def main():
     cpp_files = all_with_extension('.cpp')
     headers = all_with_extension('.hpp')
 
     makefile = ''
 
     objects: list[str] = []
+    libs: list[str] = []
 
     for file in cpp_files:
         dirname = 'build/objects/' + path.dirname(file)
         obj_name = 'build/objects/' + path.splitext(file)[0] + '.o'
-        header_name = path.splitext(file)[0] + '.h'
+        header_name = path.splitext(file)[0] + '.hpp'
         dependencies = [file]
         if header_name in headers: dependencies.append(header_name)
+
+        annotations = parse_annotations(file)
+
+        if 'link' in annotations:
+            for line in annotations['link']:
+                for lib in line:
+                    if lib not in libs:
+                        libs.append(lib)
+
         makefile += makefile_item(obj_name, dependencies, [fs_util('mkdir', dirname), f'{COMPILER} -c {file} -o {obj_name}'])
         objects.append(obj_name)
+    
+    
+    libs_str = ' '.join(map(lambda lib: f'-l{lib}', libs))
     
     makefile = makefile_item(
         'all',
         objects,
-        [f'{COMPILER} {" ".join(objects)} -o {EXECUTABLE}']
+        [f'{COMPILER} {" ".join(objects)} {libs_str} -o {EXECUTABLE}']
     ) + makefile_item(
         'run',
         ['all'],

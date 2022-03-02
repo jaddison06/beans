@@ -1,23 +1,27 @@
+//~ link SDL2
+
 #include "SDLDisplay.hpp"
 
 using namespace beans;
 
 SDLDisplay::SDLDisplay(std::string title, bool fullscreen) {
-#define err(code) \
-    LogSDLError(code); \
-    return;
-
-    if (SDL_Init(SDL_INIT_VIDEO) != 0)
-        err(SDLInitErrorCode::InitVideo_Fail)
+    if (SDL_Init(SDL_INIT_VIDEO) != 0) {
+        LogSDLError(SDLInitErrorCode::InitVideo_Fail);
+        return;
+    }
     
-    window = SDL_CreateWindow(title.c_str(), 40, 40, 350, 350, fullscreen ? SDL_WINDOW_FULLSCREEN : SDL_WINDOW_RESIZABLE);
+    window = SDL_CreateWindow(title.c_str(), 40, 40, 350, 350, (fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : SDL_WINDOW_RESIZABLE));
 
-    if (window == NULL)
-        err(SDLInitErrorCode::CreateWindow_Fail)
+    if (window == NULL) {
+        LogSDLError(SDLInitErrorCode::CreateWindow_Fail);
+        return;
+    }
 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-    if (renderer == NULL)
-        err(SDLInitErrorCode::CreateRenderer_Fail);
+    if (renderer == NULL) {
+        LogSDLError(SDLInitErrorCode::CreateRenderer_Fail);
+        return;
+    }
 
     SDL_StartTextInput();
 
