@@ -25,9 +25,7 @@ SDLDisplay::SDLDisplay(std::string title, bool fullscreen) {
 
     SDL_StartTextInput();
 
-    errorCode = SDLInitErrorCode::Success;   
-
-#undef err        
+    errorCode = SDLInitErrorCode::Success; 
 }
 
 void SDLDisplay::LogSDLError(SDLInitErrorCode errorCode) {
