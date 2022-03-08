@@ -1,3 +1,4 @@
 beans.exe
 build/objects/*
 Makefile
+.cloc_exclude_list.txt

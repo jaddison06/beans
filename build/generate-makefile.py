@@ -27,6 +27,7 @@ def all_with_extension(*exts: str) -> list[str]:
 COMPILER = 'g++'
 EXECUTABLE = 'beans'
 PYTHON = 'python'
+CLOC = 'C:/Users/jjadd/Downloads/cloc-1.92.exe'
 
 def fs_util(*commands: str) -> str:
     return f'{PYTHON} build/fs_util.py {" ".join(commands)}'
@@ -96,6 +97,12 @@ def main():
         [
             fs_util('rmdir', 'build/objects'),
             fs_util('rmfile', EXECUTABLE + '.exe' if system() == 'Windows' else '')
+        ]
+    ) + makefile_item(
+        'cloc',
+        [],
+        [
+            f'{CLOC} . --exclude-list=.cloc_exclude_list.txt'
         ]
     ) + makefile
 
