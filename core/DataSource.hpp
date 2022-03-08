@@ -1,10 +1,11 @@
 #pragma once
 
+#include "Channel.hpp"
+
 namespace beans {
     class DataSource {
         public:
-            // Needs to be able to return an empty value if it doesn't know what
-            // to do with a channel
-            virtual ?? GetDataForChannel(int channel);
+            // return false if the source doesn't know anything about the channel
+            virtual bool SetChannelData(Channel* channel);
     };
 }
