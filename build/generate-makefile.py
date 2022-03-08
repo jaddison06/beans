@@ -9,14 +9,18 @@ def makefile_item(name: str, dependencies: list[str], commands: list[str]) -> st
     out += '\n\n'
     return out
 
-def all_with_extension(ext: str) -> list[str]:
-    if not ext.startswith('.'): ext = f'.{ext}'
+def all_with_extension(*exts: str) -> list[str]:
+    for ext in exts:
+        if not ext.startswith('.'): ext = f'.{ext}'
 
     out: list[str] = []
 
     for (dirpath, _, filenames) in os.walk('.'):
         for file in filenames:
-            if path.splitext(file)[1] == ext: out.append(f'{dirpath}/{file}')
+            for ext in exts:
+                if path.splitext(file)[1] == ext:
+                    out.append(f'{dirpath}/{file}')
+                    break
 
     return out
 
@@ -45,15 +49,15 @@ def parse_annotations(fname: str) -> annotation_list_t:
     return out
 
 def main():
-    cpp_files = all_with_extension('.cpp')
-    headers = all_with_extension('.hpp')
+    c_cpp_files = all_with_extension('.c', '.cpp')
+    headers = all_with_extension('.h', '.hpp')
 
     makefile = ''
 
     objects: list[str] = []
     libs: list[str] = []
 
-    for file in cpp_files:
+    for file in c_cpp_files:
         dirname = 'build/objects/' + path.dirname(file)
         obj_name = 'build/objects/' + path.splitext(file)[0] + '.o'
         header_name = path.splitext(file)[0] + '.hpp'
