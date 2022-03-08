@@ -1,0 +1,12 @@
+<fixture name="Test fixture" manufacturer="jaddison">
+    <mode name="4ch">
+        <group name = "Intensity">
+            <param name="Intensity" min=0 max=100 16bit="false" offset=0/>
+        </group>
+        <group name="Colour">
+            <param name="Red" min=0 max=100 16bit="false" offset=1/>
+            <param name="Green" min=0 max=100 16bit="false" offset=2/>
+            <param name="Blue" min=0 max=100 16bit="false" offset=3/>
+        </group>
+    </mode>
+</fixture>
