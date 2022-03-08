@@ -5,13 +5,14 @@
 
 #include <stdio.h>
 #include <thread>
+#include <vector>
 
 using namespace beans;
 
 static bool quit = false;
 
-void StartSacn(SACNInterface* sacn) {
-    printf("StartSacn\n");
+void StartSacn() {
+    auto sacn = new SACNInterface("beans", "127.0.0.1", 1);
 
     UniverseData data;
     memset(data, 0, 512);
@@ -21,28 +22,27 @@ void StartSacn(SACNInterface* sacn) {
         memset(data, data[0] + 1, 5);
         Sleep(800);
     }
-}
 
-void StartUI(Window* window) {
-    printf("StartUI\n");
-    window->Start();
-    printf("eeeee\n");
+    delete sacn;
 }
 
 int main(int argc, char** argv) {
-    auto sacn = new SACNInterface("beans", "127.0.0.1", 1);
-    auto window = new Window();
+    auto win = new Window();
 
-    std::thread sacnThread(StartSacn, sacn);
+    std::vector<std::thread*> threads = {
+        new std::thread(StartSacn)
+    };
     
-    StartUI(window);
+    win->Start();
 
     quit = true;
 
-    sacnThread.join();
+    for (auto thread : threads) {
+        thread->join();
+        delete thread;
+    }
 
-    delete window;
-    delete sacn;
+    delete win;
     
 
     return 0;
