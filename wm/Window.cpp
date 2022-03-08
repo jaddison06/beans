@@ -1,4 +1,4 @@
-#include "BeansWindow.hpp"
+#include "Window.hpp"
 
 #include "SDLDisplay.hpp"
 #include "SDLEvent.hpp"
@@ -8,21 +8,21 @@
 
 using namespace beans;
 
-BeansWindow::BeansWindow() {
+Window::Window() {
     display = new SDLDisplay("beans");
     platformEvent = new SDLEvent();
 
-    ui = new BeansUI();
+    ui = new UI();
 }
 
-BeansWindow::~BeansWindow() {
+Window::~Window() {
     delete platformEvent;
     delete display;
 
     delete ui;
 }
 
-void BeansWindow::Start() {
+void Window::Start() {
     auto event = new Event;
 
     auto start = std::chrono::high_resolution_clock::now();
@@ -44,7 +44,7 @@ void BeansWindow::Start() {
 
     auto end = std::chrono::high_resolution_clock::now();
     auto elapsed = ((double)((end - start).count())) / 1000000000;
-    printf("%i frames in %f seconds = %f fps", frameCount, elapsed, frameCount / elapsed);
+    printf("%i frames in %f seconds = %f fps\n", frameCount, elapsed, frameCount / elapsed);
 
     delete event;
 }

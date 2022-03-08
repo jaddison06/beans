@@ -2,13 +2,13 @@
 
 #include "Display.hpp"
 #include "Event.hpp"
-#include "BeansUI.hpp"
+#include "UI.hpp"
 
 namespace beans {
-    class BeansWindow {
+    class Window {
         public:
-            BeansWindow();
-            ~BeansWindow();
+            Window();
+            ~Window();
 
             void Start();
 
@@ -18,7 +18,7 @@ namespace beans {
             Display* display;
             PlatformEvent* platformEvent;
 
-            BeansUI* ui;
+            UI* ui;
             
             int frameCount = 0;
     };

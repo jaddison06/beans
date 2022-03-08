@@ -1,3 +1,5 @@
+#pragma once
+
 #include "DMX.hpp"
 #include "../3rdparty/libe131/e131.h"
 #include <string>

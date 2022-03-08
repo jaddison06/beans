@@ -4,7 +4,7 @@
 #include "Event.hpp"
 
 namespace beans {
-    class BeansUI {
+    class UI {
         public:
             void Draw(Display* display);
             bool OnEvent(Event* event);
