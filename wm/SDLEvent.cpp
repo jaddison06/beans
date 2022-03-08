@@ -25,7 +25,45 @@ int SDLEvent::Poll(Event* event) {
         case SDL_KEYDOWN: {
             event->type = EventType::Key;
             event->key = TranslateKey();
+
+            switch (raw->key.keysym.sym) {
+                case SDLK_LSHIFT:
+                case SDLK_RSHIFT: {
+                    event->modifiers |= Modifier::Shift;
+                    break;
+                }
+                case SDLK_LCTRL:
+                case SDLK_RCTRL: {
+                    event->modifiers |= Modifier::Ctrl;
+                    break;
+                }
+                case SDLK_LALT:
+                case SDLK_RALT: {
+                    event->modifiers |= Modifier::Alt;
+                    break;
+                }
+            }
+
             break;
+        }
+        case SDL_KEYUP: {
+            switch (raw->key.keysym.sym) {
+                case SDLK_LSHIFT:
+                case SDLK_RSHIFT: {
+                    event->modifiers &= ~Modifier::Shift;
+                    break;
+                }
+                case SDLK_LCTRL:
+                case SDLK_RCTRL: {
+                    event->modifiers &= ~Modifier::Ctrl;
+                    break;
+                }
+                case SDLK_LALT:
+                case SDLK_RALT: {
+                    event->modifiers &= ~Modifier::Alt;
+                    break;
+                }
+            }
         }
         case SDL_TEXTINPUT: {
             event->type = EventType::Text;

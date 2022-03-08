@@ -48,11 +48,11 @@ namespace beans {
         Unknown
     };
 
-    enum class Modifier {
+    enum Modifier {
         Shift = 1,
         Ctrl = 2,
         Alt = 4,
-        Caps = 8
+        //Caps = 8
     };
 
     struct Event {
@@ -61,7 +61,7 @@ namespace beans {
         Key key;
         // SDL_Event uses a 32 byte buffer
         char text[32];
-        char modifiers;
+        char modifiers = 0;
         MouseButton mouseButton;
     };
 
