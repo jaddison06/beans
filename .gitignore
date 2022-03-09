@@ -1,4 +1,5 @@
 beans.exe
-build/objects/*
+build/objects/
 Makefile
 .cloc_exclude_list.txt
+.vscode/

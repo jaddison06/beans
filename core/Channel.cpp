@@ -2,8 +2,7 @@
 
 using namespace beans;
 
-Channel::Channel(FixtureData fixture) {
-    this->fixture = fixture;
+Channel::Channel(FixtureData fixture) : fixture(fixture) {
 
     dmxData.length = 0;
 

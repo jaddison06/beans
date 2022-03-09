@@ -7,6 +7,6 @@ namespace beans {
         std::string name;
         int min, max, home;
         bool is16bit;
-        uint8_t offset;
+        int offset;
     };
 }

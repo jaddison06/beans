@@ -17,8 +17,11 @@ namespace beans {
 
             bool FindParam(std::string name, Parameter* out);
 
+            void Print();
+
             std::string name;
             std::string manufacturer;
+        
             ParamGroupList paramGroups;
     };
 }
