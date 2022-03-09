@@ -8,17 +8,25 @@
 #include "FixtureData.hpp"
 
 namespace beans {
-    union LevelData {
-        uint8_t as8bit;
-        uint16_t as16bit;
+    // Relevant info about a parameter plus its real-time level.
+    // See also Parameter, which provides extra DMX metadata.
+    struct ChannelParameter {
+        int min, max, home, level;
     };
 
-    typedef std::map<std::string, LevelData> ChannelData;
+    // maps param name to real value
+    typedef std::map<std::string, ChannelParameter*> ChannelData;
 
-    struct ChannelDmxData {
-        int* data;
-        int length;
+    struct DMXData {
+        uint8_t* data;
+        uint8_t length;
     };
+
+    // Channel needs real values to pass to processors etc
+    // Also needs DMX values for output
+    // Don't wanna be calculating DMX levels for every frame the interface wants to send
+    // Ideally, update DMX levels when real levels are set.
+    //    -> Set levels programmatically
 
     class Channel {
         public:
@@ -26,12 +34,17 @@ namespace beans {
             ~Channel();
 
             FixtureData fixture;
-            ChannelData levels;
 
-            ChannelDmxData ToDmx();
+            ChannelData GetLevels();
+            void SetLevels(ChannelData newLevels);
+
+            DMXData GetDmx();
 
         private:
-            int addr_count;
-            int* dmx_data;
+            ChannelData levels;
+
+            DMXData dmxData;
+
+            void UpdateDmxData();
     };
 }
