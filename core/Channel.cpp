@@ -50,6 +50,7 @@ DMXData Channel::GetDmx() {
 void Channel::UpdateDmxData() {
     Parameter dmxInfo;
     for (auto param : levels) {
+        // hopefully this won't fail !!
         fixture.FindParam(param.first, &dmxInfo);
 
         // normalise min, max, level -> between 0 and newMax
