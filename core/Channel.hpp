@@ -29,6 +29,7 @@ namespace beans {
 
             FixtureData fixture;
 
+            ChannelData GetLevels();
             void SetLevels(ChannelData newLevels);
 
             DMXData GetDmx();

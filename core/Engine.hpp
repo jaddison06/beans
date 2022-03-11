@@ -14,7 +14,7 @@
 namespace beans {
     struct EngineChannel {
         uint16_t address;
-        Channel channel;
+        Channel* channel;
         DataSource* currentDataSource;
         std::vector<ChannelProcessor*> processors;
     };
