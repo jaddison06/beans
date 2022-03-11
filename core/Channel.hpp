@@ -21,13 +21,7 @@ namespace beans {
         uint8_t* data;
         uint8_t length;
     };
-
-    // Channel needs real values to pass to processors etc
-    // Also needs DMX values for output
-    // Don't wanna be calculating DMX levels for every frame the interface wants to send
-    // Ideally, update DMX levels when real levels are set.
-    //    -> Set levels programmatically
-
+    
     class Channel {
         public:
             Channel(FixtureData fixture);
@@ -35,7 +29,6 @@ namespace beans {
 
             FixtureData fixture;
 
-            ChannelData GetLevels();
             void SetLevels(ChannelData newLevels);
 
             DMXData GetDmx();

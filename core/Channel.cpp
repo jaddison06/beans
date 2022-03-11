@@ -33,10 +33,6 @@ Channel::~Channel() {
     delete dmxData.data;
 }
 
-ChannelData Channel::GetLevels() {
-    return levels;
-}
-
 void Channel::SetLevels(ChannelData newLevels) {
     levels = newLevels;
     UpdateDmxData();

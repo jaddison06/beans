@@ -28,7 +28,7 @@ void StartSacn() {
     delete sacn;
 }
 
-int main(int argc, char** argv) {/*
+int main(int argc, char** argv) {
     auto win = new Window();
 
     std::vector<std::thread*> threads = {
@@ -46,9 +46,5 @@ int main(int argc, char** argv) {/*
 
     delete win;
     
-    return 0;
-    */
-
-    FixtureData("fixtures/test.bfix", "4ch").Print();
     return 0;
 }

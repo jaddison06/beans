@@ -1,5 +1,7 @@
 #include "SACN.hpp"
 
+#include <stdexcept>
+
 using namespace beans;
 
 SACNInterface::SACNInterface(std::string source_name, std::string dest, uint16_t universe) {
@@ -22,12 +24,21 @@ SACNInterface::SACNInterface(std::string source_name, std::string dest, uint16_t
     }
 
     err = E131ErrorCode::Success;
+
+    sendThread = std::thread(SendLoop);
 }
 
-bool SACNInterface::Send(UniverseData data) {
-    memcpy(&packet.dmp.prop_val[1], data, 512);
+SACNInterface::~SACNInterface() {
+    quit = true;
+    sendThread.join();
+}
 
-    auto ret = e131_send(sockfd, &packet, &dest);
-    packet.frame.seq_number++;
-    return ret < 0;
+void SACNInterface::SendLoop() {
+    while (!quit) {
+        memcpy(&packet.dmp.prop_val[1], data, 512);
+
+        auto ret = e131_send(sockfd, &packet, &dest);
+        packet.frame.seq_number++;
+        if (ret < 0) throw std::runtime_error("e131_send returned error");
+    }
 }
