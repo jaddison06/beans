@@ -22,7 +22,7 @@ namespace beans {
     struct Universe {
         uint16_t id;
         std::vector<EngineChannel> channels;
-        DMXInterface* interface;
+        DMXInterface* iface;
     };
 
     // The Beans engine processes and updates channel data in real-time.

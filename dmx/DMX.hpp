@@ -10,6 +10,8 @@ namespace beans {
     // when it's destroyed.
     class DMXInterface {
         public:
+            DMXInterface();
+            
             UniverseData data;
     };
 

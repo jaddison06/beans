@@ -25,7 +25,7 @@ SACNInterface::SACNInterface(std::string source_name, std::string dest, uint16_t
 
     err = E131ErrorCode::Success;
 
-    sendThread = std::thread(SendLoop);
+    sendThread = std::thread([=](){SendLoop();});
 }
 
 SACNInterface::~SACNInterface() {

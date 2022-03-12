@@ -15,19 +15,12 @@ using namespace beans;
 
 static bool quit = false;
 
-class TestDataSource : public DataSource {
-    public:
-        ChannelData GetChannelData(Channel* channel) {
-            return channel->GetLevels();
-        }
-};
-
 int main(int argc, char** argv) {
     auto sacn = new SACNInterface("beans", "127.0.0.1", 1);
 
     auto engine = new Engine();
     auto chan = new Channel(FixtureData("fixtures/test.bfix", "4ch"));
-    auto ds = new TestDataSource();
+    auto ds = new DataSource();
 
     engine->universes.push_back(Universe {
         1,
