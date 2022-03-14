@@ -9,7 +9,9 @@ namespace beans {
     // It should start continuously outputting DMX when it's constructed, and finish
     // when it's destroyed.
     class DMXInterface {
-        public:            
+        public:
+            DMXInterface(); // PLEASE remember to call this !!!
+
             UniverseData data;
     };
 

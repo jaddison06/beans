@@ -4,7 +4,7 @@
 
 using namespace beans;
 
-SACNInterface::SACNInterface(std::string source_name, std::string dest, uint16_t universe) {
+SACNInterface::SACNInterface(std::string source_name, std::string dest, uint16_t universe) : DMXInterface() {
     if ((sockfd = e131_socket()) < 0) {
         err = E131ErrorCode::SocketInitErr;
         return;
@@ -22,8 +22,6 @@ SACNInterface::SACNInterface(std::string source_name, std::string dest, uint16_t
         err = E131ErrorCode::SetUnicastDestFailed;
         return;
     }
-
-    memset(data, 0, 512);
 
     err = E131ErrorCode::Success;
 
