@@ -23,6 +23,8 @@ SACNInterface::SACNInterface(std::string source_name, std::string dest, uint16_t
         return;
     }
 
+    memset(data, 0, 512);
+
     err = E131ErrorCode::Success;
 
     sendThread = std::thread([=](){SendLoop();});
