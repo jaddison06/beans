@@ -1,6 +1,6 @@
 #pragma once
 
-#include "DMX.hpp"
+#include "DMXInterface.hpp"
 #include "../3rdparty/libe131/e131.h"
 #include <string>
 #include <thread>
@@ -17,6 +17,8 @@ namespace beans {
         public:
             SACNInterface(std::string source_name, std::string dest, uint16_t universe);
             ~SACNInterface();
+
+            void SetLevels(DMXData data);
 
             E131ErrorCode err;
         

@@ -33,10 +33,12 @@ SACNInterface::~SACNInterface() {
     sendThread.join();
 }
 
+void SACNInterface::SetLevels(DMXData data) {
+    memcpy(&packet.dmp.prop_val[1], data.data, data.length);
+}
+
 void SACNInterface::SendLoop() {
     while (!quit) {
-        memcpy(&packet.dmp.prop_val[1], data, 512);
-
         auto ret = e131_send(sockfd, &packet, &dest);
         packet.frame.seq_number++;
         if (ret < 0) throw std::runtime_error("e131_send returned error");

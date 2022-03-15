@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "FixtureData.hpp"
+#include "DMX/DMXInterface.hpp"
 
 namespace beans {
     // Relevant info about a parameter plus its real-time level.
@@ -16,11 +17,6 @@ namespace beans {
 
     // maps param name to real value
     typedef std::map<std::string, ChannelParameter*> ChannelData;
-
-    struct DMXData {
-        uint8_t* data;
-        uint8_t length;
-    };
     
     class Channel {
         public:

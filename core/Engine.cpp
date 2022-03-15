@@ -12,7 +12,7 @@ void Engine::Tick() {
             channel.channel->SetLevels(levels);
             auto dmxData = channel.channel->GetDmx();
             // todo: assumes no overflow - we should check that the channel's address allows it to fit inside the uni
-            memcpy(&universe.iface->data[channel.address - 1], dmxData.data, dmxData.length);
+            universe.iface->SetLevels(dmxData);
         }
     }
 }

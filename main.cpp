@@ -22,7 +22,7 @@ int main(int argc, char** argv) {
     auto chan = new Channel(FixtureData("fixtures/test.bfix", "4ch"));
     auto ds = new DataSource();
 
-    engine->universes.push_back(Universe {
+    engine->universes.push_back({
         1,
         {
             EngineChannel {

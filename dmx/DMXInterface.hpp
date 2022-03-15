@@ -5,18 +5,16 @@
 namespace beans {
     typedef uint8_t UniverseData[512];
 
+    struct DMXData {
+        uint8_t* data;
+        uint8_t length;
+    };
+
     // A DMXInterface is responsible for a SINGLE UNIVERSE of DMX data
     // It should start continuously outputting DMX when it's constructed, and finish
     // when it's destroyed.
     class DMXInterface {
         public:
-            DMXInterface(); // PLEASE remember to call this !!!
-
-            UniverseData data;
-    };
-
-    class DMXManager {
-        public:
-            DMXInterface* GetInterface(uint16_t universe);
+            void SetLevels(DMXData data);
     };
 }

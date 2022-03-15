@@ -2,7 +2,7 @@
 
 #include "DataSource.hpp"
 #include "ChannelProcessor.hpp"
-#include "../dmx/DMX.hpp"
+#include "../dmx/DMXInterface.hpp"
 
 #include <vector>
 

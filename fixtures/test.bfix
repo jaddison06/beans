@@ -1,7 +1,7 @@
 <fixture name="Test fixture" manufacturer="jaddison">
     <mode name="4ch">
         <group name="Intensity">
-            <param name="Intensity" min="0" max="100" home="100" is16bit="false" offset="0"/>
+            <param name="Intensity" min="0" max="100" home="0" is16bit="false" offset="0" />
         </group>
         <group name="Colour">
             <param name="Red" min="0" max="100" home="100" is16bit="false" offset="1"/>
