@@ -1,6 +1,6 @@
 #pragma once
 
-#include "DMXInterface.hpp"
+#include "ComboInterface.hpp"
 
 #define BEANS_MAX_UNIS UINT16_MAX
 
@@ -9,11 +9,13 @@ namespace beans {
         public:
             DMXManager();
             ~DMXManager();
-            
+
+            void Clear();
+
             // UNIVERSE INDEXING STARTS FROM 1 !!!
-            DMXInterface* GetInterface(uint16_t universe);
+            ComboInterface* GetInterface(uint16_t universe);
 
         private:
-            DMXInterface* interfaces[BEANS_MAX_UNIS];
+            ComboInterface* interfaces[BEANS_MAX_UNIS];
     };
 }

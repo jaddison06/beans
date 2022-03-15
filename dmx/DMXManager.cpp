@@ -3,14 +3,19 @@
 
 #include <string.h>
 
+#include "SACN.hpp"
+
 using namespace beans;
 
 DMXManager::DMXManager() {
     memset(interfaces, 0, BEANS_MAX_UNIS);
-    interfaces[0] = new 
 }
 
 DMXManager::~DMXManager() {
+    Clear();
+}
+
+void DMXManager::Clear() {
     for (int i = 0; i < BEANS_MAX_UNIS; i++) {
         if (interfaces[i] != 0) {
             delete interfaces[i];
@@ -18,7 +23,7 @@ DMXManager::~DMXManager() {
     }
 }
 
-DMXInterface* DMXManager::GetInterface(uint16_t universe) {
+ComboInterface* DMXManager::GetInterface(uint16_t universe) {
     universe--;
     if (interfaces[universe] == 0) {
         interfaces[universe] = new ComboInterface;

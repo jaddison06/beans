@@ -15,6 +15,6 @@ namespace beans {
     // when it's destroyed.
     class DMXInterface {
         public:
-            void SetLevels(DMXData data);
+            virtual void SetLevels(DMXData data) = 0;
     };
 }

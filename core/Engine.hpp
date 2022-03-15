@@ -3,6 +3,7 @@
 #include "DataSource.hpp"
 #include "ChannelProcessor.hpp"
 #include "../dmx/DMXInterface.hpp"
+#include "../dmx/DMXManager.hpp"
 
 #include <vector>
 
@@ -13,6 +14,7 @@
 
 namespace beans {
     struct EngineChannel {
+        uint16_t num;
         uint16_t address;
         Channel* channel;
         DataSource* currentDataSource;
@@ -20,7 +22,7 @@ namespace beans {
     };
 
     struct Universe {
-        uint16_t id;
+        uint16_t num;
         std::vector<EngineChannel> channels;
         DMXInterface* iface;
     };
@@ -30,6 +32,8 @@ namespace beans {
     class Engine {
         public:
             std::vector<Universe> universes;
+
+            void LoadPatch(std::string dataFile, DMXManager* manager);
 
             void Tick();
     };

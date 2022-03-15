@@ -5,10 +5,13 @@
 
 namespace beans {
     // A ComboInterface can send levels to any amount of child DMXInterfaces.
+    // AddChild() caller is responsible for allocating memory, ownership is then passed
+    // to the ComboInterface and by extension the DMXManager.
     class ComboInterface : public DMXInterface {
         public:
-            template<typename T>
-            void AddChild();
+            ~ComboInterface();
+
+            void AddChild(DMXInterface* child);
             
             bool RemoveChild(DMXInterface* child);
 

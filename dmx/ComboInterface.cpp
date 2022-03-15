@@ -2,9 +2,14 @@
 
 using namespace beans;
 
-template<typename T>
-void ComboInterface::AddChild() {
-    children.push_back(new T);
+ComboInterface::~ComboInterface() {
+    for (auto child : children) {
+        delete child;
+    }
+}
+
+void ComboInterface::AddChild(DMXInterface* child) {
+    children.push_back(child);
 }
 
 bool ComboInterface::RemoveChild(DMXInterface* child) {

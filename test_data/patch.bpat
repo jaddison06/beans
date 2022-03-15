@@ -1,0 +1,10 @@
+<patch>
+    <uni num="1">
+        <interfaces>
+            <sacn />
+        </interfaces>
+        <channels>
+            <chan num="1" address="1" type="test_data/fixture.bfix" mode="4ch"/>
+        </channels>
+    </uni>
+</patch>
