@@ -35,12 +35,26 @@ SACNInterface::~SACNInterface() {
 
 void SACNInterface::SetLevels(DMXData data) {
     memcpy(&packet.dmp.prop_val[1], data.data, data.length);
+    Send();
+}
+
+// eek ouch yuck
+// i wanna call Send() from SetLevels so it gets called whenever the data changes,
+// but at the same time it should lowkey be on a different thread.
+//
+// SendLoop() also needs to happen every second-ish as a keepalive
+
+void SACNInterface::Send() {
+    auto ret = e131_send(sockfd, &packet, &dest);
+    packet.frame.seq_number++;
+    if (ret < 0) throw std::runtime_error("e131_send returned error");
 }
 
 void SACNInterface::SendLoop() {
     while (!quit) {
-        auto ret = e131_send(sockfd, &packet, &dest);
-        packet.frame.seq_number++;
-        if (ret < 0) throw std::runtime_error("e131_send returned error");
+       Send();
+
+        // E1.31 mandates a keepalive packet every 1.5 secs, so send every second to be safe.
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
     }
 }

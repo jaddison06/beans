@@ -6,7 +6,7 @@
 #include <vector>
 
 #include "FixtureData.hpp"
-#include "../DMX/DMXInterface.hpp"
+#include "DMX/DMXInterface.hpp"
 
 namespace beans {
     // Relevant info about a parameter plus its real-time level.

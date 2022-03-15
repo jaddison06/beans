@@ -1,7 +1,9 @@
 #include "Engine.hpp"
-#include "../3rdparty/pugi/pugixml.hpp"
+#include "3rdparty/pugi/pugixml.hpp"
 
-#include "../DMX/SACN.hpp"
+#include "debug/Log.hpp"
+
+#include "DMX/SACN.hpp"
 
 using namespace beans;
 
@@ -14,6 +16,8 @@ void Engine::LoadPatch(std::string dataFile, DMXManager* manager) {
     if (!parseResult) throw std::runtime_error("Error while parsing XML file");
 
     auto patch = doc.child("patch");
+
+    auto ds = new DataSource;
 
     for (auto uni : patch.children("uni")) {
         uint16_t uniNum = uni.attribute("num").as_uint();
@@ -38,7 +42,10 @@ void Engine::LoadPatch(std::string dataFile, DMXManager* manager) {
                 new Channel(FixtureData(
                     channel.attribute("type").value(),
                     channel.attribute("mode").value()
-                ))
+                )),
+                // todo: temp
+                ds,
+                {}
             });
         }
     }

@@ -2,6 +2,10 @@
 
 #include <stdint.h>
 
+// lil bit of namespace pollution so includers can sleep
+#include <chrono>
+#include <thread>
+
 namespace beans {
     typedef uint8_t UniverseData[512];
 

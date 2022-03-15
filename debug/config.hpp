@@ -1,0 +1,1 @@
+#define BEANS_DBG_LOGGING true

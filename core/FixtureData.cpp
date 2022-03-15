@@ -1,5 +1,5 @@
 #include "FixtureData.hpp"
-#include "../3rdparty/pugi/pugixml.hpp"
+#include "3rdparty/pugi/pugixml.hpp"
 #include <stdio.h>
 
 using namespace beans;

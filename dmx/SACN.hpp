@@ -1,7 +1,7 @@
 #pragma once
 
 #include "DMXInterface.hpp"
-#include "../3rdparty/libe131/e131.h"
+#include "3rdparty/libe131/e131.h"
 #include <string>
 #include <thread>
 
@@ -23,6 +23,8 @@ namespace beans {
             E131ErrorCode err;
         
         private:
+            void Send();
+
             bool quit = false;
             std::thread sendThread;
             void SendLoop();

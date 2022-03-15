@@ -73,7 +73,7 @@ def main():
                     if lib not in libs:
                         libs.append(lib)
 
-        makefile += makefile_item(obj_name, dependencies, [fs_util('mkdir', dirname), f'{COMPILER} -c {file} -o {obj_name}'])
+        makefile += makefile_item(obj_name, dependencies, [fs_util('mkdir', dirname), f'{COMPILER} -c {file} -I. -o {obj_name}'])
         objects.append(obj_name)
     
     

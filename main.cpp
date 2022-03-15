@@ -6,6 +6,8 @@
 #include "core/DataSource.hpp"
 #include "dmx/DMXManager.hpp"
 
+#include "debug/Log.hpp"
+
 #include <windows.h>
 
 #include <stdio.h>

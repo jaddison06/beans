@@ -2,8 +2,8 @@
 
 #include "DataSource.hpp"
 #include "ChannelProcessor.hpp"
-#include "../dmx/DMXInterface.hpp"
-#include "../dmx/DMXManager.hpp"
+#include "dmx/DMXInterface.hpp"
+#include "dmx/DMXManager.hpp"
 
 #include <vector>
 
