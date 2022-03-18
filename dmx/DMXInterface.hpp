@@ -2,9 +2,9 @@
 
 #include <stdint.h>
 
-// lil bit of namespace pollution so includers can sleep
 #include <chrono>
 #include <thread>
+#include <functional>
 
 namespace beans {
     typedef uint8_t UniverseData[512];
@@ -19,6 +19,22 @@ namespace beans {
     // when it's destroyed.
     class DMXInterface {
         public:
+            ~DMXInterface();
+        
             virtual void SetLevels(DMXData data) = 0;
+
+            void SendNow();
+        
+        protected:
+            void StartSending(std::function<void()> SendCB, std::chrono::milliseconds keepaliveInterval = std::chrono::milliseconds(1000));
+        
+        private:
+            bool quit = false;
+            std::thread keepaliveThread;
+
+            std::function<void()> SendCB;
+
+            void KeepaliveLoop(std::chrono::milliseconds keepaliveInterval);
+
     };
 }

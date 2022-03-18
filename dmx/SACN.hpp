@@ -16,7 +16,6 @@ namespace beans {
     class SACNInterface : public DMXInterface {
         public:
             SACNInterface(std::string source_name, std::string dest, uint16_t universe);
-            ~SACNInterface();
 
             void SetLevels(DMXData data);
 
@@ -24,10 +23,6 @@ namespace beans {
         
         private:
             void Send();
-
-            bool quit = false;
-            std::thread sendThread;
-            void SendLoop();
 
             int sockfd;
             e131_packet_t packet;
