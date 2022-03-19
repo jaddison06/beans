@@ -23,8 +23,8 @@ bool ComboInterface::RemoveChild(DMXInterface* child) {
     return false;
 }
 
-void ComboInterface::SetLevels(DMXData data) {
+void ComboInterface::SetLevels(uint16_t addr, DMXData data) {
     for (auto child : children) {
-        child->SetLevels(data);
+        child->SetLevels(addr, data);
     }
 }

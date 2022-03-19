@@ -17,7 +17,7 @@ namespace beans {
         public:
             SACNInterface(std::string source_name, std::string dest, uint16_t universe);
 
-            void SetLevels(DMXData data);
+            void SetLevels(uint16_t addr, DMXData data);
 
             E131ErrorCode err;
         

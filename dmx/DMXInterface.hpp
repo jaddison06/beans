@@ -21,7 +21,7 @@ namespace beans {
         public:
             ~DMXInterface();
         
-            virtual void SetLevels(DMXData data) = 0;
+            virtual void SetLevels(uint16_t addr, DMXData data) = 0;
 
             void SendNow();
         

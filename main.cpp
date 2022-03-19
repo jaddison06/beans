@@ -7,6 +7,7 @@
 #include "dmx/DMXManager.hpp"
 
 #include "debug/Log.hpp"
+#include "debug/assert.hpp"
 
 #include <windows.h>
 
@@ -19,15 +20,18 @@ using namespace beans;
 static bool quit = false;
 
 int main(int argc, char** argv) {
-    auto sacn = new SACNInterface("beans", "127.0.0.1", 1);
-
     auto mgr = new DMXManager();
     auto engine = new Engine();
 
+    Log::Info("Loading patch");
+
     engine->LoadPatch("test_data/patch.bpat", mgr);
-    
+
+    Log::Info("Starting main loop");
+
     while (true) {
-        engine->Tick();
+        //Log::Info("Ticking");
+        //engine->Tick();
         Sleep(600);
     }
 

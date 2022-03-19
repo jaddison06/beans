@@ -2,6 +2,9 @@
 
 #include <stdexcept>
 
+#include "debug/Log.hpp"
+#include "debug/assert.hpp"
+
 using namespace beans;
 
 SACNInterface::SACNInterface(std::string source_name, std::string dest, uint16_t universe) {
@@ -28,12 +31,19 @@ SACNInterface::SACNInterface(std::string source_name, std::string dest, uint16_t
     StartSending(std::bind(&SACNInterface::Send, this));
 }
 
-void SACNInterface::SetLevels(DMXData data) {
-    memcpy(&packet.dmp.prop_val[1], data.data, data.length);
+void SACNInterface::SetLevels(uint16_t addr, DMXData data) {
+    // check for change - this is SACN, so we don't wanna resend packets if we don't have to.
+    if (memcmp(data.data, &packet.dmp.prop_val[addr], data.length) == 0) return;
+
+    memcpy(&packet.dmp.prop_val[addr], data.data, data.length);
+
     SendNow();
 }
 
 void SACNInterface::Send() {
+    static int i = 0;
+    Log::Info("Sending SACN packet %i", i++);
+
     auto ret = e131_send(sockfd, &packet, &dest);
     packet.frame.seq_number++;
     if (ret < 0) throw std::runtime_error("e131_send returned error");

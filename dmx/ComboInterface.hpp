@@ -15,7 +15,7 @@ namespace beans {
             
             bool RemoveChild(DMXInterface* child);
 
-            void SetLevels(DMXData data);
+            void SetLevels(uint16_t addr, DMXData data);
         
         private:
             std::vector<DMXInterface*> children;
