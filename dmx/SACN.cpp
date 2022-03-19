@@ -41,9 +41,6 @@ void SACNInterface::SetLevels(uint16_t addr, DMXData data) {
 }
 
 void SACNInterface::Send() {
-    static int i = 0;
-    Log::Info("Sending SACN packet %i", i++);
-
     auto ret = e131_send(sockfd, &packet, &dest);
     packet.frame.seq_number++;
     if (ret < 0) throw std::runtime_error("e131_send returned error");

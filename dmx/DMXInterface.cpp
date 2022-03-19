@@ -11,7 +11,7 @@ DMXInterface::~DMXInterface() {
 
 void DMXInterface::StartSending(std::function<void()> SendCB, std::chrono::milliseconds keepaliveInterval) {
     this->SendCB = SendCB;
-    keepaliveThread = std::thread([=](){ Log::Info("Keepalive lambda"); KeepaliveLoop(keepaliveInterval); });
+    keepaliveThread = std::thread([=](){ KeepaliveLoop(keepaliveInterval); });
 }
 
 // not ideal bc it'll take however many ms to register the quit
@@ -23,6 +23,5 @@ void DMXInterface::KeepaliveLoop(std::chrono::milliseconds keepaliveInterval) {
 }
 
 void DMXInterface::SendNow() {
-    Log::Warning("SendNow called");
     std::thread(SendCB);
 }

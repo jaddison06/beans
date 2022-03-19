@@ -8,6 +8,7 @@
 
 #include "debug/Log.hpp"
 #include "debug/assert.hpp"
+#include "debug/perfcount.hpp"
 
 #include <windows.h>
 
@@ -19,7 +20,7 @@ using namespace beans;
 
 static bool quit = false;
 
-int main(int argc, char** argv) {
+int main(int argc, char** argv) {/*
     auto mgr = new DMXManager();
     auto engine = new Engine();
 
@@ -30,8 +31,8 @@ int main(int argc, char** argv) {
     Log::Info("Starting main loop");
 
     while (true) {
-        //Log::Info("Ticking");
-        //engine->Tick();
+        Log::Info("Ticking");
+        engine->Tick();
         Sleep(600);
     }
 
@@ -44,7 +45,25 @@ int main(int argc, char** argv) {
     for (auto thread : threads) {
         thread->join();
         delete thread;
+    }*/
+    PERFCOUNT_START();
+
+    for (int i = 0; i < 1000000; i++) {
+        i--;
+        i++;
     }
+
+    PERFCOUNT_END();
+
+    PERFCOUNT_START();
+
+    for (int i = 0; i < 1000000; i++) {
+        i--;
+        i++;
+    }
+
+    PERFCOUNT_END();
+
     
     return 0;
 }
