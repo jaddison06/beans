@@ -20,13 +20,14 @@ using namespace beans;
 
 static bool quit = false;
 
-int main(int argc, char** argv) {/*
+int main(int argc, char** argv) {
     auto mgr = new DMXManager();
     auto engine = new Engine();
+    auto ds = new DataSource();
 
     Log::Info("Loading patch");
 
-    engine->LoadPatch("test_data/patch.bpat", mgr);
+    engine->LoadPatch("test_data/patch.bpat", mgr, ds);
 
     Log::Info("Starting main loop");
 
@@ -45,24 +46,7 @@ int main(int argc, char** argv) {/*
     for (auto thread : threads) {
         thread->join();
         delete thread;
-    }*/
-    PERFCOUNT_START();
-
-    for (int i = 0; i < 1000000; i++) {
-        i--;
-        i++;
     }
-
-    PERFCOUNT_END();
-
-    PERFCOUNT_START();
-
-    for (int i = 0; i < 1000000; i++) {
-        i--;
-        i++;
-    }
-
-    PERFCOUNT_END();
 
     
     return 0;

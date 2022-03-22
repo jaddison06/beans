@@ -31,9 +31,16 @@ namespace beans {
     // There can be multiple engine instances which the user can switch between.
     class Engine {
         public:
+            ~Engine();
+
             std::vector<Universe> universes;
 
-            void LoadPatch(std::string dataFile, DMXManager* manager);
+            // Load a patch file into the Engine and into the DMXManager.
+            // The Engine is *NOT* responsible for the DMXManager, but it makes sense to have
+            // all the load logic in one place.
+            void LoadPatch(std::string dataFile, DMXManager* manager, DataSource* defaultDataSource);
+
+            void ClearPatch();
 
             void Tick();
     };

@@ -7,17 +7,27 @@
 
 using namespace beans;
 
-void Engine::LoadPatch(std::string dataFile, DMXManager* manager) {
+Engine::~Engine() {
+    ClearPatch();
+}
+
+void Engine::ClearPatch() {
+    for (auto uni : universes) {
+        for (auto chan : uni.channels) {
+            delete chan.channel;
+        }
+    }
     universes.clear();
-    manager->Clear();
+}
+
+void Engine::LoadPatch(std::string dataFile, DMXManager* manager, DataSource* defaultDataSource) {
+    ClearPatch();
 
     pugi::xml_document doc;
     auto parseResult = doc.load_file(dataFile.c_str());
     if (!parseResult) throw std::runtime_error("Error while parsing XML file");
 
     auto patch = doc.child("patch");
-
-    auto ds = new DataSource;
 
     for (auto uni : patch.children("uni")) {
         uint16_t uniNum = uni.attribute("num").as_uint();
@@ -38,13 +48,11 @@ void Engine::LoadPatch(std::string dataFile, DMXManager* manager) {
             universes.back().channels.push_back({
                 (uint16_t)channel.attribute("num").as_uint(),
                 (uint16_t)channel.attribute("address").as_uint(),
-                // todo: free??
                 new Channel(FixtureData(
                     channel.attribute("type").value(),
                     channel.attribute("mode").value()
                 )),
-                // todo: temp
-                ds,
+                defaultDataSource,
                 {}
             });
         }
