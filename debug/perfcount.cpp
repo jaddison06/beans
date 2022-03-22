@@ -5,26 +5,42 @@
 #include <vector>
 #include <thread>
 
-#include <stdio.h>
+#include "3rdparty/pugi/pugixml.hpp"
 
-using accuracy = std::chrono::microseconds;
+#define accuracy microseconds
 
-static std::map<std::thread::id, std::map<std::string, std::vector<accuracy>>> perfData;
+static std::map<std::thread::id, std::map<std::string, std::vector<std::chrono::accuracy>>> perfData;
 static std::map<std::thread::id, std::chrono::high_resolution_clock::time_point> startTimes;
 
 static bool perfcountInitialized = false;
 
 static void writePerfData() {
-    int thread = 0;
+    pugi::xml_document doc;
+    
+    auto root = doc.append_child("perfData");
+
+    #define _stringify(name) #name
+    #define stringify(name) _stringify(name)
+
+    root.append_attribute("accuracy").set_value(stringify(accuracy));
+    
+    #undef _stringify
+    #undef stringify
+
+    int id = 0;
     for (auto threadData : perfData) {
-        printf("thread %i\n", thread++);
+        auto thread = root.append_child("thread");
+        thread.append_attribute("id").set_value(id++);
         for (auto funcData : threadData.second) {
-            printf("  function %s\n", funcData.first.c_str());
+            auto func = thread.append_child("func");
+            func.append_attribute("name").set_value(funcData.first.c_str());
             for (auto run : funcData.second) {
-                printf("    %i microseconds\n", run.count());
+                func.append_child("run").append_attribute("time").set_value(run.count());
             }
         }
     }
+
+    doc.save_file(BEANS_DBG_PERFCOUNT_FILE, "    ", pugi::format_indent | pugi::format_no_declaration);
 }
 
 static void initialize() {
@@ -42,5 +58,5 @@ void beans::perfcountStart() {
 void beans::perfcountEnd(std::string funcName) {
     auto end = std::chrono::high_resolution_clock::now();
     auto start = startTimes[std::this_thread::get_id()];
-    perfData[std::this_thread::get_id()][funcName].push_back(std::chrono::duration_cast<accuracy>(end - start));
+    perfData[std::this_thread::get_id()][funcName].push_back(std::chrono::duration_cast<std::chrono::accuracy>(end - start));
 }
