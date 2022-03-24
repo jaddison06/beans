@@ -21,22 +21,7 @@ using namespace beans;
 static bool quit = false;
 
 int main(int argc, char** argv) {
-    auto mgr = new DMXManager();
-    auto engine = new Engine();
-    auto ds = new DataSource();
-
-    Log::Info("Loading patch");
-
-    engine->LoadPatch("test_data/patch.bpat", mgr, ds);
-
-    Log::Info("Starting main loop");
-
-    while (true) {
-        Log::Info("Ticking");
-        engine->Tick();
-        Sleep(600);
-    }
-
+    
     std::vector<std::thread*> threads = {
 
     };

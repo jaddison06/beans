@@ -81,7 +81,7 @@ def main():
     
     makefile = makefile_item(
         'all',
-        objects,
+        objects + ['commandline'],
         [f'{COMPILER} {" ".join(objects)} {libs_str} -o {EXECUTABLE}']
     ) + makefile_item(
         'run',
@@ -92,11 +92,18 @@ def main():
         [],
         [f'{PYTHON} build/generate-makefile.py']
     ) + makefile_item(
+        'commandline',
+        [],
+        [
+            f'{PYTHON} build/commandline.py'
+        ]
+    ) + makefile_item(
         'clean',
         [],
         [
             fs_util('rmdir', 'build/objects'),
-            fs_util('rmfile', EXECUTABLE + '.exe' if system() == 'Windows' else '')
+            fs_util('rmfile', EXECUTABLE + '.exe' if system() == 'Windows' else ''),
+            fs_util('rmfile', 'core/commandline/generated.hpp')
         ]
     ) + makefile_item(
         'cloc',

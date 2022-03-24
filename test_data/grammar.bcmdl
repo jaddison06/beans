@@ -1,0 +1,12 @@
+<commandline>
+    <noun name="Chan" key="c">
+        <dynamicattrs name="params" />
+        <attr type="int" name="Universe" set="false" />
+    </noun>
+    <noun name="Cue" key="q">
+        <attr type="int" name="Time" />
+        <function name="Execute" >
+            <param name="time" type="int" optional="true" />
+        </function>
+    </noun>
+</commandline>

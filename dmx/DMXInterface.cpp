@@ -23,5 +23,7 @@ void DMXInterface::KeepaliveLoop(std::chrono::milliseconds keepaliveInterval) {
 }
 
 void DMXInterface::SendNow() {
+    // wanna execute it in PARALLEL, but spawning a new thread is expensive and stupid and a bitch
+    // solution...?
     std::thread(SendCB);
 }
