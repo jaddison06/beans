@@ -72,8 +72,12 @@ def parseGrammar(grammarFile: str) -> list[Noun]:
 
 def codegen(grammar: list[Noun]) -> str:
     buf = StringIO()
+    
+    buf.write('#pragma once\n\n#include <functional>\n\nnamespace beans::commmandline {\n')
 
-    print(grammar)
+    buf.write('    template<typename T>\n    typedef std::function<T(typename, uint32_t)> NounLookup;')
+
+    buf.write('')
 
     return buf.getvalue()
 
