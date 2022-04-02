@@ -1,5 +1,5 @@
 <commandline>
-    <noun name="Chan" key="c">
+    <noun name="Channel" key="c">
         <dynamicattrs name="params" />
         <attr type="int" name="Universe" set="false" />
     </noun>

@@ -72,6 +72,8 @@ def main():
                 for lib in line:
                     if lib not in libs:
                         libs.append(lib)
+        
+        if 'nocompile' in annotations: continue
 
         makefile += makefile_item(obj_name, dependencies, [fs_util('mkdir', dirname), f'{COMPILER} -c {file} -I. -o {obj_name}'])
         objects.append(obj_name)
